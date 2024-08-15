@@ -25,6 +25,7 @@ BEGIN
         FROM TravelSTAGE.dbo.STAGE_NoFillArrival stg
         INNER JOIN dbo.DIM_Countries dim
         ON dim.CCA3 = stg.CountryCode
+        WHERE stg.TouristAmount is not null
     ) as src
     ON src.CountryCode = targ.CountryCode
     AND src.ArrivalYear = targ.ArrivalYear
