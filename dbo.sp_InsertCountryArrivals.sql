@@ -21,16 +21,16 @@ BEGIN
     -- Insert statements for procedure here
     MERGE INTO TravelDB.dbo.FACT_CountryArrivals targ
     USING(
-        SELECT *
+        SELECT dim.CountryID, stg.CountryCode, stg.ArrivalYear, stg.TouristAmount
         FROM TravelSTAGE.dbo.STAGE_NoFillArrival stg
         INNER JOIN dbo.DIM_Countries dim
         ON dim.CCA3 = stg.CountryCode
         WHERE stg.TouristAmount is not null
     ) as src
-    ON src.CountryCode = targ.CountryCode
+    ON src.CountryID = targ.CountryID
     AND src.ArrivalYear = targ.ArrivalYear
     WHEN NOT MATCHED
-    THEN INSERT (CountryID, CountryCode, ArrivalYear, TouristAmount)
-    VALUES (src.CountryID, src.CountryCode, src.ArrivalYear, src.TouristAmount);
+    THEN INSERT (CountryID, ArrivalYear, TouristAmount)
+    VALUES (src.CountryID, src.ArrivalYear, src.TouristAmount);
 END
 GO
