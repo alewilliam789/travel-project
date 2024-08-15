@@ -18,7 +18,6 @@ BEGIN
     -- interfering with SELECT statements.
     SET NOCOUNT ON
 
-    -- Insert statements for procedure here
     MERGE INTO TravelDB.dbo.FACT_CountryArrivals targ
     USING(
         SELECT dim.CountryID, stg.CountryCode, stg.ArrivalYear, stg.TouristAmount
