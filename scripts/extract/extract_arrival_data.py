@@ -1,4 +1,4 @@
-from s3 import upload_file
+from utils.s3 import upload_file
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import os
